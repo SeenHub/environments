@@ -1,0 +1,6 @@
+#SOURCE         DEST            POLICY          LOG             LIMIT:BURST
+#                                               LEVEL
+ $FW            net             ACCEPT
+ net            all             DROP            info
+ all            all             REJECT          info
+#LAST LINE -- DO NOT REMOVE
