@@ -1,1 +1,1 @@
-%deploy ALL=NOPASSWD: /usr/bin/*
+%deploy ALL=NOPASSWD: /usr/bin/apt-get,/usr/sbin/a2*,/usr/sbin/service
