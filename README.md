@@ -10,8 +10,9 @@ the scripts in `bin` and understand what they do before running them__
 
 ### OSX Development Environment
 
-Simply run:
+Set up your ssh keys and run the script:
 
+    ssh-keygen -t rsa
     bash < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/osx-development)
 
 ### Ubuntu Server Environment
