@@ -11,6 +11,8 @@ if which brew
     echo "Installing Homebrew, a good OS X package manager..."
     ruby < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/homebrew)
 fi
+
+echo "Updating Homebrew formulae and Homebrew itself..."
 brew update
 
 echo "Put Homebrew location earlier in PATH..."
