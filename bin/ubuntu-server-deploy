@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Based on Ubuntu server 11.10
+
+if [ "$(whoami)" != 'deploy' ]
+  then
+    echo 'You must run this as deploy.'
+    exit 0
+fi
+
+echo "Checking for SSH key, generating one if it doesn't exist..."
+[[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
+
+echo "Now add relevant public keys to /home/deploy/.ssh/authorized_keys"

@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Based on Ubuntu server 11.10
+
+if [ "$(whoami)" != 'root' ]
+  then
+    echo 'You must run this as root.'
+    exit 0
+fi
+
+echo "Checking for SSH key, generating one if it doesn't exist..."
+[[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
+
+echo "Getting latest apt sources..."
+apt-get update
+
+echo "Installing software from apt..."
+apt-get -y install shorewall apache2 monit build-essential git-core mysql-server mysql-client monit php5 php5-mysql php5-gd php5-curl php-pear postfix ruby1.9.1 libyaml-dev
+
+echo "Installing PECL yaml..."
+pecl install yaml
+
+echo "Configuring Shorewall..."
+cd /usr/share/doc/shorewall/default-config
+cp modules* helpers shorewall.conf /etc/shorewall/
+curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/interfaces
+curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/policy
+curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/rules
+curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/zones
+cd /etc/default
+rm shorewall
+curl -O https://raw.github.com/SeenHub/environments/master/etc/default/shorewall
+service shorewall start
+
+echo "Configuring Monit..."
+cd /etc/monit/conf.d
+curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/apache
+curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/mysql
+service monit restart
+
+echo "Configuring PHP..."
+cd /etc/php5/conf.d
+curl -O https://raw.github.com/SeenHub/environments/master/etc/php5/conf.d/yaml.ini
+a2enmod rewrite
+a2enmod headers
+a2enmod expires
+a2dissite default
+service apache2 restart
+
+echo "Installing Rubygems..."
+gem install bundler --no-rdoc --no-ri
+gem install taps --no-rdoc --no-ri
+
+echo "Setting up deploy user..."
+cd /etc/sudoers.d
+curl -O https://raw.github.com/SeenHub/environments/master/etc/sudoers.d/deploy
+chmod 0440 deploy
+groupadd -g 1000 deploy
+useradd -m -s /bin/bash -u 1000 -G deploy,staff,www-data deploy
+usermod -a -G deploy www-data
+chgrp -R deploy /var/www /etc/apache2/sites-available/ /etc/apache2/sites-enabled/
+chmod g+w /var/www /etc/apache2/sites-available/ /etc/apache2/sites-enabled/
+
+echo "Now add relevant public keys to /root/.ssh/authorized_keys"

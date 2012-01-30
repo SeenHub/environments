@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+echo "Checking vhosts.conf is included in httpd.conf..."
+if grep "^Include \/private\/etc\/apache2\/extra\/httpd-vhosts.conf" /private/etc/apache2/httpd.conf
+  then
+    echo "vhosts.conf already included in httpd.conf."
+  else
+    echo "Including vhosts.conf in httpd.conf..."
+    sudo sed -i '' 's/#Include \/private\/etc\/apache2\/extra\/httpd-vhosts.conf/Include \/private\/etc\/apache2\/extra\/httpd-vhosts.conf/' /private/etc/apache2/httpd.conf
+fi
+
+echo "Making sure Apache's Directory directive is not too strict..."
+cp /private/etc/apache2/httpd.conf /tmp/httpd.conf.original
+sed -n '1h;1!H;${;g;s/<Directory \/>.*<\/Directory>/<Directory \/>\
+    Options FollowSymLinks\
+    AllowOverride All\
+    Order allow,deny\
+    Allow from all\
+<\/Directory>/;p;}' /tmp/httpd.conf.original > /tmp/httpd.conf
+sudo mv /tmp/httpd.conf /private/etc/apache2/httpd.conf
+
+echo "Restarting Apache..."
+sudo apachectl restart

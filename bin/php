@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+echo "Checking for php.ini file..."
+if [ -f /etc/php.ini ]
+  then
+    echo "php.ini file already exists."
+  else
+    echo "Copying php.ini file..."
+    sudo cp /etc/php.ini.default /etc/php.ini
+fi
+
+echo "Checking PEAR is installed..."
+if which pear && which pecl
+  then
+    echo "PEAR already installed."
+  else
+    echo "Installing PEAR, a PHP package manager..."
+      curl -s http://pear.php.net/go-pear.phar > /tmp/go-pear.phar
+      php /tmp/go-pear.phar
+fi
+
+echo "Checking PECL yaml is installed..."
+if pecl info yaml | grep "No information found for \`yaml'"
+  then
+    echo "Installing PECL yaml, a YAML parsing library..."
+    sudo pecl install yaml
+  else
+    echo "PECL yaml already installed."
+fi
+
+echo "Checking libmcrypt PHP extension is installed..."
+if find /usr/lib/php/extensions -name mcrypt.so | grep mcrypt.so
+  then
+    echo "libmcrypt PHP extension is already installed."
+  else
+    echo "Installing libmcrypt PHP extension..."
+    curl -O http://museum.php.net/php5/php-5.3.4.tar.gz
+    tar xvfz php-5.3.4.tar.gz
+    cd php-5.3.4/ext/mcrypt
+    phpize
+    ./configure
+    make
+    sudo make install
+    cd ../../..
+    rm -rf php-5.3.4 php-5.3.4.tar.gz
+fi
+
+if find /usr/lib/php/extensions -name mcrypt.so | grep mcrypt.so
+  then
+    if grep ^extension=mcrypt.so /etc/php.ini
+      then
+        echo "mcrypt extension already added to php.ini."
+      else
+        "Adding mcrypt extension to php.ini..."
+        awk '/^;extension=/ && !modif { printf("extension=mcrypt.so\n"); modif=1 } {print}' test
+    fi
+  else
+    echo "mcrypt.so could not be found!  Check that you have libmcrypt installed.  Setup aborted."
+    exit 0
+fi
+
+echo "Checking libyaml PHP extension is installed..."
+if find /usr/lib/php/extensions -name yaml.so | grep yaml.so
+  then
+    echo "libyaml PHP extension is already installed."
+
+    if grep ^extension=yaml.so /etc/php.ini
+      then
+        echo "yaml extension already added to php.ini."
+      else
+        "Adding yaml extension to php.ini..."
+        awk '/^;extension=/ && !modif { printf("extension=yaml.so\n"); modif=1 } {print}' test
+    fi
+  else
+    echo "yaml.so could not be found!  Check that you have libyaml installed.  Setup aborted."
+    exit 0
+fi
+
