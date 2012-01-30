@@ -7,8 +7,14 @@ echo "Copying public key to clipboard.  Paste it into your GitHub account..."
 [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
 open https://github.com/account/ssh
 
-echo "Installing Homebrew, a good OS X package manager..."
-ruby < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/homebrew)
+echo "Checking Homebrew is installed..."
+if which brew
+  then
+    echo "Homebrew is already installed."
+  else
+    echo "Installing Homebrew, a good OS X package manager..."
+    ruby < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/homebrew)
+fi
 brew update
 
 echo "Put Homebrew location earlier in PATH..."
