@@ -8,7 +8,7 @@ echo "Copying public key to clipboard.  Paste it into your GitHub account..."
 open https://github.com/account/ssh
 
 echo "Installing Homebrew, a good OS X package manager..."
-bash < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/homebrew)
+ruby < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/homebrew)
 brew update
 
 echo "Put Homebrew location earlier in PATH..."
