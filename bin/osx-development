@@ -52,9 +52,6 @@ brew install libmcrypt
 echo "Installing libyaml, a useful library for parsing YAML and used in our deployment scripts..."
 brew install libyaml
 
-echo "Installing ImageMagick, good for cropping and re-sizing images..."
-brew install imagemagick
-
 echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing..."
 brew install qt
 
