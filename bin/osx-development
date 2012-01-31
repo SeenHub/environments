@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "Initiating sudo now so you don't need to give your password later..."
+sudo sleep 0
+
 echo "Copying public key to clipboard.  Paste it into your GitHub account..."
 [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
 
@@ -28,7 +31,7 @@ fi
 echo "Updating Homebrew formulae and Homebrew itself..."
 brew update
 
-echo "Put Homebrew location earlier in PATH..."
+echo "Putting Homebrew location earlier in PATH..."
 if ! echo $PATH | grep -q ^\/usr\/local\/bin:
   then echo "export PATH='/usr/local/bin:$PATH'" >> ~/.bash_profile
 fi
