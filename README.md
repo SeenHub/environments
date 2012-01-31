@@ -21,6 +21,7 @@ Set up your ssh keys and run the script:
 
 First, log in as root and run:
 
+    ssh-keygen -t rsa
     bash < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/ubuntu-server-root)
 
 Next, add the relevant public keys for `root`.
@@ -28,6 +29,7 @@ Next, add the relevant public keys for `root`.
 Then:
 
     su deploy
+    ssh-keygen -t rsa
     bash < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/ubuntu-server-deploy)
 
 Finally, add the relevant public keys for `deploy`.

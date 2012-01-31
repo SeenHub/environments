@@ -8,9 +8,6 @@ if [ "$(whoami)" != 'root' ]
     exit 0
 fi
 
-echo "Checking for SSH key, generating one if it doesn't exist..."
-[[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
-
 echo "Getting latest apt sources..."
 apt-get update
 
