@@ -8,4 +8,6 @@ if [ "$(whoami)" != 'deploy' ]
     exit 0
 fi
 
+ssh-keygen -t rsa
+
 echo "Now add relevant public keys to /home/deploy/.ssh/authorized_keys"
