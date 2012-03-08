@@ -53,7 +53,9 @@ cd /etc/sudoers.d
 curl -O https://raw.github.com/SeenHub/environments/master/etc/sudoers.d/deploy
 chmod 0440 deploy
 groupadd -g 1000 deploy
-useradd -m -s /bin/bash -u 1000 -G deploy,staff,www-data deploy
+useradd -m -s /bin/bash -u 1000 -g deploy deploy
+usermod -a -G www-data deploy
+usermod -a -G staff deploy
 usermod -a -G deploy www-data
 chgrp -R deploy /var/www /etc/apache2/sites-available/ /etc/apache2/sites-enabled/
 chmod g+w /var/www /etc/apache2/sites-available/ /etc/apache2/sites-enabled/
