@@ -29,6 +29,11 @@ rm shorewall
 curl -O https://raw.github.com/SeenHub/environments/master/etc/default/shorewall
 service shorewall start
 
+echo "Configuring MySQL..."
+cd /etc/mysql
+curl -O https://raw.github.com/SeenHub/environments/master/etc/mysql/my.cnf
+service mysql restart
+
 echo "Configuring Monit..."
 cd /etc/monit/conf.d
 curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/apache.conf
