@@ -36,8 +36,8 @@ service mysql restart
 
 echo "Configuring Monit..."
 cd /etc/monit/conf.d
-curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/apache.conf
-curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/mysql.conf
+curl -O https://raw.github.com/SeenHub/environments/master/etc/monit/conf.d/apache.conf
+curl -O https://raw.github.com/SeenHub/environments/master/etc/monit/conf.d/mysql.conf
 service monit restart
 
 echo "Configuring PHP..."
