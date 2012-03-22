@@ -31,8 +31,8 @@ service shorewall start
 
 echo "Configuring Monit..."
 cd /etc/monit/conf.d
-curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/apache
-curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/mysql
+curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/apache.conf
+curl -O https://raw.github.com/SeenHub/environments/master/etc/monit.d/mysql.conf
 service monit restart
 
 echo "Configuring PHP..."
