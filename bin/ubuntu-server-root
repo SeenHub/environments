@@ -17,6 +17,7 @@ apt-get -y install shorewall apache2 libapache2-modsecurity monit build-essentia
 echo "Configuring Shorewall..."
 cd /usr/share/doc/shorewall/default-config
 cp modules* helpers shorewall.conf /etc/shorewall/
+cd /etc/shorewall
 curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/interfaces
 curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/policy
 curl -O https://raw.github.com/SeenHub/environments/master/etc/shorewall/rules
