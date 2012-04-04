@@ -12,7 +12,7 @@ echo "Getting latest apt sources..."
 apt-get update
 
 echo "Installing software from apt..."
-apt-get -y install shorewall apache2 libapache2-modsecurity monit build-essential git-core mysql-server mysql-client monit php5 php5-mysql php5-gd php5-curl php-pear postfix ruby1.9.1 libyaml-dev
+apt-get -y install shorewall apache2 libapache2-modsecurity monit build-essential git-core mysql-server mysql-client monit php5 libapache2-mod-php5 php5-mysql php5-gd php5-curl php-pear postfix ruby1.9.1 libyaml-dev
 
 echo "Configuring Shorewall..."
 cd /usr/share/doc/shorewall/default-config
