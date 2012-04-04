@@ -61,5 +61,4 @@ usermod -a -G deploy www-data
 chgrp -R deploy /var/www /etc/apache2/sites-available/ /etc/apache2/sites-enabled/
 chmod g+w /var/www /etc/apache2/sites-available/ /etc/apache2/sites-enabled/
 
-ssh-keygen -t rsa
 echo "Now add relevant public keys to /root/.ssh/authorized_keys"
