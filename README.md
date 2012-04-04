@@ -22,6 +22,7 @@ Set up your ssh keys and run the script:
 First, log in as root and run:
 
     ssh-keygen -t rsa
+    apt-get -y install curl
     bash < <(curl -s https://raw.github.com/SeenHub/environments/master/bin/ubuntu-server-root)
 
 Next, add the relevant public keys for `root`.
