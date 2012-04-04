@@ -14,9 +14,6 @@ apt-get update
 echo "Installing software from apt..."
 apt-get -y install shorewall apache2 libapache2-modsecurity monit build-essential git-core mysql-server mysql-client monit php5 php5-mysql php5-gd php5-curl php-pear postfix ruby1.9.1 libyaml-dev
 
-echo "Installing PECL yaml..."
-pecl install yaml
-
 echo "Configuring Shorewall..."
 cd /usr/share/doc/shorewall/default-config
 cp modules* helpers shorewall.conf /etc/shorewall/
@@ -40,9 +37,7 @@ curl -O https://raw.github.com/SeenHub/environments/master/etc/monit/conf.d/apac
 curl -O https://raw.github.com/SeenHub/environments/master/etc/monit/conf.d/mysql.conf
 service monit restart
 
-echo "Configuring PHP..."
-cd /etc/php5/conf.d
-curl -O https://raw.github.com/SeenHub/environments/master/etc/php5/conf.d/yaml.ini
+echo "Configuring Apache..."
 a2enmod rewrite
 a2enmod headers
 a2enmod expires
